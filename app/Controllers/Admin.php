@@ -8,4 +8,9 @@ class Admin extends BaseController
     {
         return view('admin_layout/page');
     }
+
+    public function dashboard()
+    {
+        return view('admin_layout/page');
+    }
 }
