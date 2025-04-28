@@ -7,6 +7,7 @@ class Auth extends BaseController
 {
     function __construct() {
         helper('form');
+        date_default_timezone_set('Asia/Jakarta');
     }
 
     public function index()
@@ -40,27 +41,32 @@ class Auth extends BaseController
 
             $u = ['email' => $email];
             $q = $Auth->where($u)->first();
-            // $q = $Auth->getWhere(['email' => $email])->first();
+            $id = $q['idadmin'];
 
             if ($q) {
                 if ($q['status_act'] == 1) {
-                    // if ($password == $q['password']) {
                     if (password_verify($password, $q['password'])) {
                         session()->set('username',$q['username']);
                         session()->set('email',$q['email']);
+
+                        $data = [
+                            "last_active" => date('Y-m-d H:i:s')
+                        ];
+                        $Auth->update($id, $data);
+
                         return redirect()->to('/dashboard');
                     } else {
-                        session()->setFlashdata('error', 'Login Tidak Berhasil.');
+                        session()->setFlashdata('error', '<div class="alert alert-warning">Login Tidak Berhasil!</div>');
                         return redirect()->to('/login666');
                     }
                 } 
                 else {
-                    session()->setFlashdata('error', 'Akun tidak terdaftar');
+                    session()->setFlashdata('error', '<div class="alert alert-danger">Akun BELUM AKTIF!</div>');
                     return redirect()->to('/login666');
                 }
             }
         } else{
-            session()->setFlashdata('error', 'Login Tidak Dikenal');
+            session()->setFlashdata('error', '<div class="alert alert-danger">Akun TIDAK DIKENAL!</div>');
             return redirect()->to('/login666');
         }
         return redirect()->to('/login666');
@@ -113,18 +119,25 @@ class Auth extends BaseController
             $auth->insert([
                 "username" => $this->request->getPost('username'),
                 "email" => $this->request->getPost('email'),
-                // "password" => password_hash($this->request->getPost('password1'),PASSWORD_DEFAULT),
-                "password" => $this->request->getPost('password1'),
+                "password" => password_hash($this->request->getPost('password1'),PASSWORD_DEFAULT),
+                // "password" => $this->request->getPost('password1'),
                 "status_act" => 1,
                 "role_id" => 1,
             ]);
+            session()->setFlashdata('message', '<div class="alert alert-success">Registrasi BERHASIL, silahkan Login!</div>');
             return redirect()->to('register');
         } else{
-            // session()->setFlashdata('errors');
-            // $errors = $validation->getErrors;
+            session()->setFlashdata('message', '<div class="alert alert-danger">Registrasi GAGAL!</div>');
+            return redirect()->to('register');
         }
 
             // tampilkan form create
             echo view('admin_layout/register');
+    }
+
+    public function logout(){
+        $session = session();
+        $session->destroy();
+        return redirect()->to('/login666');
     }
 }

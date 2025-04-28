@@ -22,7 +22,7 @@
                                         <h3 class="text-center font-weight-light my-4">Register | Create Account</h3>
                                     </div>
                                     <div class="card-body">
-                                        <?= validation_list_errors() ?>
+                                                <?= session()->getFlashdata('message') ?>
                                         <form action="<?= base_url('/save_register') ?>" method="post" >
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" name="username" id="username" type="text" placeholder="username" />

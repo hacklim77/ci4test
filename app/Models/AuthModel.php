@@ -10,6 +10,6 @@ class AuthModel extends Model
     protected $primaryKey = 'idadmin';
 
     protected $useAutoIncrement = true;
-    protected $allowedFields = ['username', 'email', 'password', 'role_id', 'status', 'last_active'];
+    protected $allowedFields = ['username', 'email', 'password', 'role_id', 'status_act', 'last_active'];
 
 }
