@@ -12,7 +12,7 @@ class Auth extends BaseController
 
     public function index()
     {
-        return view('admin_layout/signin');
+        return view('admin/admin_layout/signin');
     }
 
     public function signin() {
@@ -46,6 +46,7 @@ class Auth extends BaseController
             if ($q) {
                 if ($q['status_act'] == 1) {
                     if (password_verify($password, $q['password'])) {
+                        session()->set('idadmin',$q['idadmin']);
                         session()->set('username',$q['username']);
                         session()->set('email',$q['email']);
 
@@ -53,27 +54,27 @@ class Auth extends BaseController
                             "last_active" => date('Y-m-d H:i:s')
                         ];
                         $Auth->update($id, $data);
-
+                        
                         return redirect()->to('/dashboard');
                     } else {
                         session()->setFlashdata('error', '<div class="alert alert-warning">Login Tidak Berhasil!</div>');
                         return redirect()->to('/login666');
                     }
-                } 
+                }
                 else {
                     session()->setFlashdata('error', '<div class="alert alert-danger">Akun BELUM AKTIF!</div>');
                     return redirect()->to('/login666');
                 }
             }
         } else{
-            session()->setFlashdata('error', '<div class="alert alert-danger">Akun TIDAK DIKENAL!</div>');
+            session()->setFlashdata('error', '<div class="alert alert-danger">FORM KOSONG!</div>');
             return redirect()->to('/login666');
         }
         return redirect()->to('/login666');
     }
 
     public function register() {
-        return view('admin_layout/register');
+        return view('admin/admin_layout/register');
     }
 
     public function save_register() {
@@ -132,7 +133,7 @@ class Auth extends BaseController
         }
 
             // tampilkan form create
-            echo view('admin_layout/register');
+            echo view('admin/admin_layout/register');
     }
 
     public function logout(){

@@ -9,8 +9,8 @@ class Home extends BaseController
         return view('welcome_message');
     }
 
-    public function cek(){
-        return view('cek');
+    public function cektheme() {
+        return view('main');
     }
 
 }

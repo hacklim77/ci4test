@@ -6,7 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
-$routes->get('/cek', 'Home::cek');
+$routes->get('/main', 'Home::cektheme');
 
 //Auth
 $routes->get('/login666', 'Auth::index');
@@ -18,3 +18,5 @@ $routes->post('/logout', 'Auth::logout');
 
 //Admin
 $routes->get('/dashboard', 'Admin::index');
+
+$routes->presenter('artikel');
