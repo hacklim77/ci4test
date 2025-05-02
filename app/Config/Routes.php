@@ -9,6 +9,7 @@ $routes->get('/', 'Home::index');
 $routes->get('/main', 'Home::cektheme');
 
 //Auth
+
 $routes->get('/login666', 'Auth::index');
 $routes->post('/signin', 'Auth::signin');
 $routes->get('/register', 'Auth::register');
@@ -17,6 +18,6 @@ $routes->get('/logout', 'Auth::logout');
 $routes->post('/logout', 'Auth::logout');
 
 //Admin
-$routes->get('/dashboard', 'Admin::index');
 
+$routes->get('/dashboard', 'Admin::index');
 $routes->presenter('artikel');

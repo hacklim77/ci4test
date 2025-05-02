@@ -15,6 +15,11 @@ class Artikel extends ResourcePresenter
     public function index()
     {
         //
+        $data = [
+            'title' => 'Artikel',
+            'subtitle' => 'Daftar Artikel',
+        ];
+        return view('admin/artikel/index',$data);
     }
 
     /**
