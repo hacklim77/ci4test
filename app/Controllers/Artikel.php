@@ -12,12 +12,21 @@ class Artikel extends ResourcePresenter
      *
      * @return ResponseInterface
      */
+    function __construct() {
+        // service('uri');
+    }
+
     public function index()
     {
         //
+        // $request = service('request');
+        // $uri = $request->uri;
+        // $something = $uri->getSegment(1); 
+
         $data = [
             'title' => 'Artikel',
             'subtitle' => 'Daftar Artikel',
+            'menu' => 'artikel',
         ];
         return view('admin/artikel/index',$data);
     }

@@ -6,7 +6,10 @@ class Admin extends BaseController
 {
     public function index()
     {
-        return view('admin/dashboard');
+        $data = [
+            'menu' => 'dashboard'
+        ];
+        return view('admin/dashboard',$data);
     }
 
 }
